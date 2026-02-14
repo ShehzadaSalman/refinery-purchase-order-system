@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PO Workflow System (Next.js + Zustand)
+
+Production-oriented Purchase Order workflow app built with:
+
+- Next.js (App Router)
+- React
+- TypeScript (strict)
+- Tailwind CSS
+- Zustand + LocalStorage persistence
+
+## Features
+
+- Catalog browsing with:
+  - search, category filter, in-stock filter, sorting
+  - debounced search + loading skeletons
+  - URL query sync for filter/search/sort state
+- PO Draft management:
+  - add items from catalog
+  - supplier lock enforcement
+  - clear draft
+  - mismatch error handling with toast feedback
+- PO creation wizard (`/po/new`):
+  - Step 1: Header
+  - Step 2: Review
+  - Step 3: Submit
+- Submission snapshot rules:
+  - item `priceAtSubmission`
+  - item `leadTimeAtSubmission`
+- PO status workflow + timeline:
+  - Draft -> Submitted -> Approved/Rejected -> Fulfilled
+  - invalid transitions blocked in store logic
+- PO List and PO Details pages
+- Persisted draft + submitted POs using Zustand persist middleware
+
+## Business Rules
+
+### Supplier Enforcement (Draft)
+
+- The first added item sets `draft.supplier`.
+- All next items must match that supplier.
+- Mixed suppliers are blocked with structured error:
+  - `SUPPLIER_MISMATCH`
+  - message: `All items in a PO must belong to the same supplier.`
+
+### PO Numbering
+
+Generated on submit in format:
+
+- `PO-YYYY-XXXX`
+- `XXXX` is per-year incremental sequence.
+
+### Status Transitions
+
+Allowed transitions:
+
+- `Draft -> Submitted`
+- `Submitted -> Approved`
+- `Submitted -> Rejected`
+- `Approved -> Fulfilled`
+
+All other transitions are rejected by store logic.
+
+## Routes
+
+- `/catalog`
+- `/po/new`
+- `/po-list`
+- `/po/[poId]`
+
+Root (`/`) redirects to `/catalog`.
+
+## State Architecture
+
+### Draft Store (`src/store/poDraftStore.ts`)
+
+Owns only working draft state:
+
+- `draft: { supplier, items, header }`
+- add/remove/update items
+- supplier enforcement
+- header validation
+- persisted to LocalStorage (`po-draft-store`)
+
+### PO Store (`src/store/poStore.ts`)
+
+Owns submitted PO records:
+
+- submitted PO list
+- submission snapshot creation
+- PO number sequence management
+- status transitions + status history
+- persisted to LocalStorage (`po-store`)
+
+## Folder Structure
+
+```text
+src/
+  app/
+    catalog/
+      page.tsx
+    po/
+      new/
+        page.tsx
+      [poId]/
+        page.tsx
+    po-list/
+      page.tsx
+    layout.tsx
+    page.tsx
+  components/
+    AppNav.tsx
+    CatalogCard.tsx
+    CatalogCardSkeleton.tsx
+    po/
+      InlineToast.tsx
+      PODraftSummary.tsx
+      POHeaderStep.tsx
+      POReviewStep.tsx
+      POSubmitStep.tsx
+      POStatusTimeline.tsx
+      POItemTable.tsx
+  hooks/
+  services/
+  store/
+    poDraftStore.ts
+    poStore.ts
+  types/
+    catalog.ts
+    po.ts
+```
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` - start dev server
+- `npm run build` - production build
+- `npm run start` - start production server
+- `npm run lint` - run ESLint
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- No backend is used; data is in-memory + LocalStorage.
+- Clearing browser storage will reset persisted draft and PO data.
