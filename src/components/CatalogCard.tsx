@@ -7,7 +7,7 @@ interface CatalogCardProps {
 
 export function CatalogCard({ item, onAddToDraft }: CatalogCardProps) {
   return (
-    <article className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+    <article className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
         <p className="text-xs font-semibold text-zinc-900">{item.id}</p>
         <span
@@ -21,8 +21,8 @@ export function CatalogCard({ item, onAddToDraft }: CatalogCardProps) {
         </span>
       </div>
 
-      <h2 className="mb-2 text-base font-semibold text-zinc-900">{item.name}</h2>
-      <p className="mb-3 text-sm text-zinc-900">{item.description}</p>
+      <h2 className="mb-2 line-clamp-2 text-base font-semibold text-zinc-900">{item.name}</h2>
+      <p className="mb-3 line-clamp-3 text-sm text-zinc-900">{item.description}</p>
 
       <div className="grid gap-1 text-sm text-zinc-900">
         <p>

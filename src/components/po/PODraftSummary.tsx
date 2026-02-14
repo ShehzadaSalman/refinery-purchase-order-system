@@ -42,7 +42,7 @@ export function PODraftSummary({
         </div>
       ) : null}
 
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm">
         <div className="flex gap-4">
           <span>
             Draft items: <span className="font-semibold">{itemCount}</span>
@@ -56,12 +56,12 @@ export function PODraftSummary({
             <button
               type="button"
               onClick={onClearDraft}
-              className="rounded border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold text-zinc-800"
+              className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold text-zinc-900 hover:bg-zinc-100"
             >
               Clear Draft
             </button>
           ) : null}
-          <Link href="/po/new" className="rounded bg-zinc-900 px-3 py-2 text-xs font-semibold text-white">
+          <Link href="/po/new" className="rounded-md bg-zinc-900 px-3 py-2 text-xs font-semibold text-white hover:bg-zinc-800">
             Open PO Draft
           </Link>
         </div>

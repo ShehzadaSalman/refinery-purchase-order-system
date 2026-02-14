@@ -88,7 +88,7 @@ export default function NewPOPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 px-4 py-8">
-      <main className="mx-auto max-w-6xl space-y-4">
+      <main className="mx-auto max-w-6xl space-y-5">
         <header>
           <h1 className="text-2xl font-bold text-zinc-900">Create Purchase Order</h1>
           <p className="mt-1 text-sm text-zinc-900">Multi-step PO workflow with supplier lock and submission snapshot.</p>
@@ -96,8 +96,8 @@ export default function NewPOPage() {
 
         <div className="grid gap-4 lg:grid-cols-3 lg:items-start">
           <section className="space-y-4 lg:col-span-2">
-            <div className="rounded-lg border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900">
-              <p>
+            <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm">
+              <p className="mb-1">
                 Supplier: <span className="font-semibold">{draft.supplier ?? "Not selected"}</span>
               </p>
               <p>
@@ -114,7 +114,7 @@ export default function NewPOPage() {
             {draft.items.length === 0 ? (
               <div className="rounded-lg border border-dashed border-zinc-300 bg-white p-8 text-center text-zinc-900">
                 <p className="mb-3">Draft is empty. Add items from the catalog to start a PO.</p>
-                <Link href="/catalog" className="rounded bg-zinc-900 px-4 py-2 text-sm font-semibold text-white">
+                <Link href="/catalog" className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800">
                   Go to Catalog
                 </Link>
               </div>
@@ -156,7 +156,7 @@ export default function NewPOPage() {
           </section>
 
           <aside className="lg:sticky lg:top-24">
-            <section className="space-y-3 rounded-lg border border-zinc-200 bg-white p-5">
+            <section className="space-y-3 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold text-zinc-900">PO Draft Items</h2>
                 <p className="text-sm text-zinc-900">{draft.items.length} item(s)</p>

@@ -80,7 +80,7 @@ export default function CatalogPageClient() {
 
   return (
     <div className="min-h-screen bg-zinc-50 px-4 py-8">
-      <main className="mx-auto max-w-7xl">
+      <main className="mx-auto max-w-7xl space-y-6">
         <header className="mb-6">
           <h1 className="text-2xl font-bold text-zinc-900">Catalog</h1>
           <p className="mt-1 text-sm text-zinc-900">
@@ -97,12 +97,12 @@ export default function CatalogPageClient() {
           onClearDraft={handleClearDraft}
         />
 
-        <section className="mb-6 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
+        <section className="rounded-xl border border-zinc-200 bg-white p-4 shadow-sm">
           <div className="mb-4 flex justify-end">
             <button
               type="button"
               onClick={clearFilters}
-              className="rounded border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold text-zinc-800"
+              className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-xs font-semibold text-zinc-900 hover:bg-zinc-100"
             >
               Clear Filters
             </button>
@@ -115,7 +115,7 @@ export default function CatalogPageClient() {
                 value={searchInput}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder="Name, ID, supplier, manufacturer, model"
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none ring-zinc-300 focus:ring"
+                className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none ring-zinc-300 focus:ring-2"
               />
             </label>
 
@@ -124,7 +124,7 @@ export default function CatalogPageClient() {
               <select
                 value={categoryFilter}
                 onChange={(event) => setCategory(event.target.value)}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none ring-zinc-300 focus:ring"
+                className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none ring-zinc-300 focus:ring-2"
               >
                 <option value="all">All Categories</option>
                 {categories.map((category) => (
@@ -140,7 +140,7 @@ export default function CatalogPageClient() {
               <select
                 value={sortBy}
                 onChange={(event) => setSort(event.target.value)}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none ring-zinc-300 focus:ring"
+                className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none ring-zinc-300 focus:ring-2"
               >
                 {SORT_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -165,7 +165,7 @@ export default function CatalogPageClient() {
           </div>
         </section>
 
-        <section>
+        <section className="space-y-4">
           <div className="mb-4 text-sm text-zinc-900">
             {isLoading ? "Loading catalog..." : `${filteredItems.length} item(s) found`}
           </div>

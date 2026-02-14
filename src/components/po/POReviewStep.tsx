@@ -23,10 +23,10 @@ export function POReviewStep({
   onNext,
 }: POReviewStepProps) {
   return (
-    <section className="space-y-4 rounded-lg border border-zinc-200 bg-white p-5">
+    <section className="space-y-4 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
       <h2 className="text-lg font-semibold text-zinc-900">Step 2: Review</h2>
 
-      <div className="grid gap-2 rounded border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-900 md:grid-cols-2">
+      <div className="grid gap-2 rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-sm text-zinc-900 md:grid-cols-2">
         <p>
           <span className="font-medium">Requestor:</span> {header.requestor}
         </p>
@@ -56,14 +56,14 @@ export function POReviewStep({
         <button
           type="button"
           onClick={onBack}
-          className="rounded border border-zinc-300 px-4 py-2 text-sm"
+          className="rounded-md border border-zinc-300 px-4 py-2 text-sm hover:bg-zinc-100"
         >
           Back to Header
         </button>
         <button
           type="button"
           onClick={onNext}
-          className="rounded bg-zinc-900 px-4 py-2 text-sm font-semibold text-white"
+          className="rounded-md bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-800"
         >
           Continue to Submit
         </button>
