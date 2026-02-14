@@ -1,10 +1,5 @@
-import { Suspense } from "react";
-import CatalogPageClient from "./catalog-page-client";
+import { redirect } from "next/navigation";
 
 export default function HomePage() {
-  return (
-    <Suspense fallback={null}>
-      <CatalogPageClient />
-    </Suspense>
-  );
+  redirect("/catalog");
 }

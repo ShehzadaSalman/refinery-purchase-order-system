@@ -74,6 +74,14 @@ export function useCatalogControls(isFetching: boolean) {
     if (!isFetching) setIsProcessing(true);
   };
 
+  const clearFilters = () => {
+    setSearchInput("");
+    setCategoryFilter("all");
+    setInStockOnly(false);
+    setSortBy(DEFAULT_SORT);
+    if (!isFetching) setIsProcessing(true);
+  };
+
   return {
     searchInput,
     setSearch,
@@ -83,6 +91,7 @@ export function useCatalogControls(isFetching: boolean) {
     setStockOnly,
     sortBy,
     setSort,
+    clearFilters,
     debouncedSearch,
     isProcessing,
   };
